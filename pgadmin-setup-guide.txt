@@ -1,0 +1,34 @@
+Guide de Configuration Manuelle de PgAdmin
+
+1. Connexion Initiale
+   - URL : http://localhost:5050
+   - Email : admin@example.com
+   - Mot de passe : admin
+
+2. Ajouter un Nouveau Serveur
+   - Cliquez sur "Add New Server"
+   
+   Onglet Général :
+   - Nom : Portfolio Database
+
+   Onglet Connexion :
+   - Hôte : host.docker.internal (ou 172.17.0.1 ou localhost)
+   - Port : 5432
+   - Base de données : portfolio_contacts
+   - Nom d'utilisateur : postgres
+   - Mot de passe : your_secure_password
+
+3. Dépannage
+   - Vérifiez que Docker est en cours d'exécution
+   - Assurez-vous que les ports 5050 et 5432 sont libres
+   - Redémarrez les conteneurs si nécessaire
+
+4. Commandes Utiles
+   - Démarrer : docker-compose up -d
+   - Arrêter : docker-compose down
+   - Voir les logs : docker logs supabase-db
+   
+5. Problèmes Courants
+   - Firewall bloquant les connexions
+   - Docker Desktop mal configuré
+   - Ports déjà utilisés par d'autres services
