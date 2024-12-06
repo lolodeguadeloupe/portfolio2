@@ -10,9 +10,13 @@
       </div>
       <h1 class="text-3xl font-bold mb-4">Welcome to My Profile</h1>
     </div>
+    <Timeline />
+    <Education />
   </main>
 </template>
 
 <script setup lang="ts">
+import Timeline from '@/components/Timeline.vue';
+import Education from '@/components/Education.vue';
 // Component logic here if needed
 </script>
