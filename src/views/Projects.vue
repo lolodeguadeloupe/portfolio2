@@ -66,10 +66,12 @@
         </div>
       </div>
     </div>
+    <Contact />
   </div>
 </template>
 
 <script setup lang="ts">
 import { projects } from '../data/projects'
 import ProjectImage from '../components/ProjectImage.vue'
+import Contact from '../components/Contact.vue'
 </script>

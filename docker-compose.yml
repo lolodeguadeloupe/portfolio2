@@ -3,13 +3,35 @@ services:
     image: postgres:15
     container_name: supabase-db
     ports:
-      - 5433:5432
+      - 5432:5432
     environment:
       POSTGRES_PASSWORD: your_secure_password
-      POSTGRES_DB: portfolio_contacts
+      POSTGRES_DB: postgres
     volumes:
       - supabase-db-data:/var/lib/postgresql/data
-      - ./init-db.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  rest:
+    image: postgrest/postgrest:latest
+    container_name: supabase-rest
+    ports:
+      - "3000:3000"
+    environment:
+      PGRST_DB_URI: postgres://postgres:your_secure_password@db:5432/postgres
+      PGRST_DB_SCHEMA: public
+      PGRST_DB_ANON_ROLE: postgres
+      PGRST_JWT_SECRET: your-super-secret-jwt-token-with-at-least-32-characters
+      PGRST_SERVER_PROXY_URI: "http://localhost:3000"
+      PGRST_OPENAPI_SERVER_PROXY_URI: "http://localhost:3000"
+      PGRST_CORS_ORIGINS: "*"
+    depends_on:
+      db:
+        condition: service_healthy
 
   pgadmin:
     image: dpage/pgadmin4
